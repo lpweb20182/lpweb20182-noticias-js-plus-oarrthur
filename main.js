@@ -60,7 +60,7 @@ function salvar(form) {
     for (var i = 0; i < noticias.length; i++) {
         atualizarLista(noticias[i])
     };
-    //form.reset();
+    form.reset();
 }
 
 function mostrarNoticia(id) {
