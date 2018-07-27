@@ -1,28 +1,26 @@
 var noticias = [];
 
 function atualizarLista(noticia) {
-    var lista = $('#noticias-recentes-list');
-    var li = $('<li id="noticia-' + noticia.id + '">');
-    li.addClass('noticia');
-    var p_titulo = $('<p>');
-    p_titulo.addClass('titulo');
-    p_titulo.attr('onclick', 'mostrarNoticia(' + noticia.id + ')');
-    p_titulo.html(noticia.titulo);
-    var p_conteudo = $('<p>');
-    p_conteudo.addClass('conteudo');
-    p_conteudo.html(noticia.conteudo
+    var lista = document.getElementById('noticias-recentes-list');
+    var li = document.createElement('li');
+    li.setAttribute('id', 'noticia-' + noticia.id);
+    li.setAttribute('class', 'noticia');
+    li.innerHTML = '<p class="titulo" onclick="mostrarNoticia(' + noticia.id + ')">'
+        + noticia.titulo
+        + '</p>'
+        + '<p class="conteudo">'
+        + noticia.conteudo
         + '<br>'
         + '<span>------------------</span>'
         + '<br>'
-        + '<button onclick="ocultarNoticia(' + noticia.id + ')">Fechar</button>');
-    li.append(p_titulo, p_conteudo);
-    p_conteudo.hide();
-    lista.append(li);
+        + '<button onclick="ocultarNoticia(' + noticia.id + ')">Fechar</button>';
+        + '</p>';
+    lista.appendChild(li);
 }
 
 function salvar(form) {
-    var titulo = $('#frm-titulo').val();
-    var conteudo = $('#frm-conteudo').val();
+    var titulo = document.getElementById('frm-titulo').value;
+    var conteudo = document.getElementById('frm-conteudo').value;
     var noticia = {
         id: noticias.length,
         titulo: titulo,
@@ -34,9 +32,21 @@ function salvar(form) {
 }
 
 function mostrarNoticia(id) {
-    $('.conteudo', '#noticia-' + id).show();
+    var li = document.getElementById('noticia-' + id);
+    for (var i = 0; i < li.childNodes.length; i++) {
+        var node = li.childNodes[i];
+        if (node.getAttribute('class') == 'conteudo') {
+            node.setAttribute('style', 'display:inline');
+        }
+    }
 }
 
 function ocultarNoticia(id) {
-    $('.conteudo', '#noticia-' + id).hide();
+    var li = document.getElementById('noticia-' + id);
+    for (var i = 0; i < li.childNodes.length; i++) {
+        var node = li.childNodes[i];
+        if (node.getAttribute('class') == 'conteudo') {
+            node.setAttribute('style', 'display:none');
+        }
+    }
 }
